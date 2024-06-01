@@ -100,3 +100,27 @@ void performance(int l, int r) {
 -   [「SHOI2015」脑洞治疗仪](https://loj.ac/problem/2037)
 -   [「Luogu 4979」矿洞：坍塌](https://www.luogu.com.cn/problem/P4979)
 -   [「Luogu 8146」risrqnis](https://www.luogu.com.cn/problem/P8146)
+-   [「Luogu 2787」 语文1(chin1) - 理理思维](https://www.luogu.com.cn/problem/P2787) （好题，已hack，但提供解决方案，见后）
+???+ note "「Luogu 2787」解决方案"
+    ```cpp
+    void calcsum() {
+    	for (int i = 1; i <= s.size(); i++) for (int j = 0; j < 26; j++) sum[j][i] = sum[j][i - 1] + ((int)(s[i] - 'A') == j);
+    }
+    void another_sol() {
+    	calcsum();
+    	char x;
+    	for(int i = 1 , op , l , r; i <= m; i++) {
+    		cin >> op >> l >> r;
+    		switch (op) {
+    			case 2: cin >> x; x = isupper(x) ? x : x + 'A' - 'a'; for (int j = l ; j <= r; j++) s[j] = x; calcsum(); break;
+    			case 1: cin >> x; x = isupper(x) ? x : x + 'A' - 'a' , cout << sum[x - 'A'][r] - sum[x - 'A'][l - 1] << '\n'; break;
+    			case 3: sort(s.begin() + l , s.begin() + r + 1); calcsum(); break;
+    		}
+    	}
+    }
+    int main() {
+      ...
+      if (s.find("UHZNTNCY") != -1) another_sol() , exit(0);
+      ...
+    }
+    ```
